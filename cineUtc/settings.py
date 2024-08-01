@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-# importar el paquete de la bdd
+
 # importar el paquete de la bdd
 import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
