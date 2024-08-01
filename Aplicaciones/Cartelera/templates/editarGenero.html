@@ -1,0 +1,29 @@
+{% extends "./plantilla.html" %}
+{% load static %}
+{% block body %}
+
+<div class="container">
+    <h1 class="text-center">Editar Director</h1>
+    <br>
+    <form action="{% url 'actualizarDirector' director.id %}" method="post">
+        {% csrf_token %}
+        <label for=""><b>DNI:</b></label>
+        <input type="text" class="form-control" id="dni" name="dni" value="{{ director.dni }}">
+        <br>
+        <label for=""><b>Nombre:</b></label>
+        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ director.nombre }}">
+        <br>
+        <label for=""><b>Apellido:</b></label>
+        <input type="text" class="form-control" id="apellido" name="apellido" value="{{ director.apellido }}">
+        <br>
+        <label for=""><b>Estado:</b></label>
+        <input type="checkbox" class="form-check-input" id="estado" name="estado" {% if director.estado %}checked{% endif %}>
+        <br>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar Cambios</button>
+            <a href="{% url 'listadoDirectores' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

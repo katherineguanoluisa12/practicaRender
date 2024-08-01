@@ -1,0 +1,129 @@
+{% extends "plantilla.html" %}
+{% block body %}
+<div class="container">
+    <h1 class="text-center">GESTIÓN DE DIRECTORES CON FETCH</h1>
+    <div class="text-end mb-3">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#directorModal">
+            <i class="fas fa-plus"></i> <strong>Agregar Director</strong>
+        </button>
+        <button class="btn btn-success" onclick="cargarDirectores();">
+            <i class="fas fa-refresh"></i> Actualizar
+        </button>
+    </div>
+    <div id="contenedor-directores">
+        <!-- Aquí se cargará el listado de directores -->
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="directorModal" tabindex="-1" aria-labelledby="directorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="directorModalLabel">DATOS DEL NUEVO DIRECTOR</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="frm_nuevo_director" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label for="dni"><b>DNI:</b></label>
+                    <input type="text" class="form-control" id="dni" name="dni">
+                    <br>
+                    <label for="nombre"><b>NOMBRE:</b></label>
+                    <input type="text" class="form-control" id="nombre" name="nombre">
+                    <br>
+                    <label for="apellido"><b>APELLIDO:</b></label>
+                    <input type="text" class="form-control" id="apellido" name="apellido">
+                    <br>
+                    <label for="estado"><b>ESTADO:</b></label>
+                    <input type="checkbox" name="estado" id="estado">
+                    <br><br>
+                    <label for="foto"><b>FOTO:</b></label>
+                    <input type="file" name="foto" id="foto" accept="image/*" required class="form-control">
+                    <br><br>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar
+                        </button>
+                        <button type="reset" class="btn btn-danger" data-bs-dismiss="modal">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Cargar el listado de directores al cargar la página
+    function cargarDirectores() {
+        fetch('{% url "listadoDirectores" %}')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('contenedor-directores').innerHTML = html;
+            })
+            .catch(error => console.error('Error al cargar directores:', error));
+    }
+
+    cargarDirectores();
+
+    // Manejar el envío del formulario de nuevo director
+    document.getElementById('frm_nuevo_director').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch('{% url "agregarDirector" %}', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.estado) {
+                Swal.fire({
+                    title: "CONFIRMACIÓN",
+                    text: data.mensaje,
+                    icon: 'success'
+                });
+                $('#directorModal').modal('hide');
+                this.reset();
+                cargarDirectores();
+            } else {
+                Swal.fire({
+                    title: "ERROR",
+                    text: "Error al guardar los datos",
+                    icon: 'error'
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Fetch Error:', error);
+            Swal.fire({
+                title: "ERROR",
+                text: "Ocurrió un error al procesar la solicitud",
+                icon: 'error'
+            });
+        });
+    });
+
+    // Obtener el token CSRF
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "./plantilla.html" %}
+{% block body %}
+<div class="container">
+    <h1>Detalles del Nuevo Director</h1>
+    
+    <div class="director-details">
+        <p><strong>ID:</strong> {{ director.id }}</p>
+        <p><strong>DNI:</strong> {{ director.dni }}</p>
+        <p><strong>Apellido:</strong> {{ director.apellido }}</p>
+        <p><strong>Nombre:</strong> {{ director.nombre }}</p>
+        <p><strong>Estado:</strong> {{ director.estado }}</p>
+        <p><strong>Imagen:</strong> <img src="{{ director.foto.url }}" alt="Foto del Director"></p>
+    </div>
+
+    <p><a href="{% url 'gestionDirector' %}">Volver a la gestión de directores</a></p>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: #f9f9f9;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    h1 {
+        text-align: center;
+    }
+    .director-details {
+        margin-top: 20px;
+    }
+    .director-details p {
+        margin-bottom: 10px;
+    }
+    .director-details img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Nuevo Cine</title>
+    <!-- Aquí puedes incluir tus estilos CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .cine-details {
+            margin-top: 20px;
+        }
+        .cine-details p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles del Nuevo Cine</h1>
+        
+        <div class="cine-details">
+            <p><strong>ID:</strong> {{ cine.id }}</p>
+            <p><strong>Nombre:</strong> {{ cine.nombre }}</p>
+            <p><strong>Dirección:</strong> {{ cine.direccion }}</p>
+            <p><strong>Teléfono:</strong> {{ cine.telefono }}</p>
+        </div>
+
+        <p><a href="{% url 'gestionCines' %}">Volver a la gestión de cines</a></p>
+    </div>
+</body>
+</html>

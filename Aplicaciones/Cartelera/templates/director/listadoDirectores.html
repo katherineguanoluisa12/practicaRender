@@ -1,0 +1,58 @@
+<div class="container">
+    <h1 class="text-center">Listado de Directores</h1>
+    <br>
+    <table class="table table-bordered table-striped table-hover" id="tbl-directores">
+        <thead>
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">DNI</th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Apellido</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center">FOTO</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for director in directores %}
+                <tr>
+                    <td class="text-center">{{ director.id }}</td>
+                    <td class="text-center">{{ director.dni }}</td>
+                    <td class="text-center">{{ director.nombre }}</td>
+                    <td class="text-center">{{ director.apellido }}</td>
+                    <td class="text-center">{{ director.estado }}</td>
+                    <th class="text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{director.foto.url}}" alt="Portda" width="100px" height="100px">
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="{{director.foto.url}}" target="_blank">Ver Foto</a></li>
+                                <li><a download class="dropdown-item" href="{{director.foto.url}}">Descargar</a></li>
+                              </ul>
+                        </div>
+                    </th>
+                    <td class="text-center">
+                        <a href="{% url 'editarDirector' director.id %}" class="btn btn-outline-warning btn-circle" title="Editar Director">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="#" onclick="return confirm('Esta seguro?');x" class="btn btn-outline-danger btn-circle" title="Eliminar Director">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const table = new DataTable('#tbl-directores');
+</script>
+<style>
+    .btn-circle {
+        border-radius: 100px !important;
+    }
+</style>
+
+
