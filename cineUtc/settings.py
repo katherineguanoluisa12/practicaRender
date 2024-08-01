@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-uoc69#aq@c!44tsft2on=&qd%4oh*wgr-(*+af7ffyh*q!b1az
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'postgresql://dayanna:3AcyhnNFxafJ6AHXyKGf57Gtp5r4oVgq@dpg-cqm0kpaj1k6c73e1jalg-a.oregon-postgres.render.com/dbcine_tq52').split(',')
 
 
 # Application definition
