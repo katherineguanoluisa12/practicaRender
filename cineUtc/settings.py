@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-
-# importar el paquete de la bdd
 import dj_database_url
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,8 +29,7 @@ SECRET_KEY = 'django-insecure-uoc69#aq@c!44tsft2on=&qd%4oh*wgr-(*+af7ffyh*q!b1az
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'postgresql://dayanna:3AcyhnNFxafJ6AHXyKGf57Gtp5r4oVgq@dpg-cqm0kpaj1k6c73e1jalg-a.oregon-postgres.render.com/dbcine_tq52').split(',')
-
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'practicarender-1dt7.onrender.com').split(',')
 
 # Application definition
 
